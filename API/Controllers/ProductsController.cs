@@ -11,12 +11,11 @@ namespace API.Controllers
     {
         //在class內創造一個private field，將private field 指派給context(快速修復 -> Initialize field from parameter)
         //快捷ctor
-        private readonly StoreContext _context;
-
+        private readonly StoreContext context;
         public ProductsController(StoreContext context)
         {
-            _context = context;
-
+            this.context = context;
+            
         }
 
         //返回所有產品列表
