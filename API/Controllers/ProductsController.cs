@@ -11,11 +11,10 @@ namespace API.Controllers
     {
         //在class內創造一個private field，將private field 指派給context(快速修復 -> Initialize field from parameter)
         //快捷ctor
-        private readonly StoreContext context;
+        private readonly StoreContext _context;
         public ProductsController(StoreContext context)
         {
-            this.context = context;
-            
+            _context = context;
         }
 
         //返回所有產品列表
@@ -23,14 +22,14 @@ namespace API.Controllers
         //async達成異步 -> 讓多人可以同時打接口
         public async Task<ActionResult<List<Product>>>GetProducts()
         {
-            return await context.Products.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
         //傳入id參數 返回單一產品
         [HttpGet("{id}")]  //api/product/3
         public async Task<ActionResult<Product>>GetProduct(int id)
         {
-            return await context.Products.FindAsync(id);
+            return await _context.Products.FindAsync(id);
         }
     }
 }
