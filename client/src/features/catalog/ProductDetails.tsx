@@ -3,6 +3,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../app/models/Product";
+import agent from "../../app/api/agent";
+import NotFound from "../../app/errors/NotFound";
+import LoadingComponent from "../../app/layout/LoadingComponent";
 
 export default function ProductDetails(){
     //接收從router來的id
@@ -13,15 +16,18 @@ export default function ProductDetails(){
 
     //如果[id]偵測到id換了，會再次調接口
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/products/${id}`)
-        .then(response => setProduct(response.data))
+        //axios.get(`http://localhost:5000/api/products/${id}`)
+
+        // 當id非undefined時才會執行右側程式碼 (agent.Catalog.details(parseInt(id))....)
+        id && agent.Catalog.details(parseInt(id))
+        .then(response => setProduct(response))
         .catch(error => console.log(error))
         .finally(() => setLoading(false))
     },[id])
 
     //在return資料前先做判斷
-    if (loading) return <h3>Loading...</h3>;
-    if(!product) return <h3>Product not found !</h3>
+    if (loading) return <LoadingComponent message="Loading Products..."/>;
+    if(!product) return <NotFound />
 
     return (
         <Grid container spacing={6}>
