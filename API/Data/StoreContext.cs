@@ -11,5 +11,6 @@ namespace API.Data
 
         //創建的table
         public DbSet<Product> Products { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
     }
 }
