@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(opt => 
 {
-    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://127.0.0.1:3000");
+    opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://127.0.0.1:3000","http://localhost:3000");
 });
 
 app.UseAuthorization();
